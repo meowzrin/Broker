@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="dal\ProviderTwo\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IpInfo" Version="1.0.5.1" />
+  </ItemGroup>
+
+
+</Project>
