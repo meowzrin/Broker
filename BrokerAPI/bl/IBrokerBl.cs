@@ -8,6 +8,6 @@ namespace BrokerAPI.bl
 {
     public interface IBrokerBl
     {
-        Task<BrokerResponse> processData(string ip);
+        Task<BrokerResponse> processData();
     }
 }

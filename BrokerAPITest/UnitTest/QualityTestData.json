@@ -1,0 +1,14 @@
+[
+  {
+    "providerName":"IpInfo",
+    "avgResponseTime": "500",
+    "requestCount": "7",
+    "errorCount": "1"
+  },
+  {
+    "providerName": "slowIpInfo",
+    "avgResponseTime": "1800",
+    "requestCount": "2",
+    "errorCount": "3"
+  }
+]

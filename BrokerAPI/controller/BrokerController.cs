@@ -9,7 +9,6 @@ namespace BrokerAPI.controller
     [Route("[controller]")]
     public class BrokerController: ControllerBase
     {
-        //private readonly ILogger<paymentController> _logger;
         private readonly IBrokerBl _brokerBl;
 
         public BrokerController(IBrokerBl brokerBl)
@@ -20,13 +19,13 @@ namespace BrokerAPI.controller
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(BrokerResponse))]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<BrokerResponse>> ProcessPayment([FromQuery] string ip)
+        public async Task<ActionResult<BrokerResponse>> ProcessPayment()
         {
 
             BrokerResponse response = new BrokerResponse();
             
 
-            response = await _brokerBl.processData(ip);
+            response = await _brokerBl.processData();
 
             return Ok(response);
         }

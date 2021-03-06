@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BrokerAPI.dal.ProviderOne
+namespace BrokerAPI.dal.ProviderTwo
 {
-    public interface IIPInfoDal
+    public interface ISlowIpInfoDal
     {
         Task<IpInfo.FullResponse> getIPdetails(ProviderQuality p1);
     }

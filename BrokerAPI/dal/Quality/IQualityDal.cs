@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BrokerAPI.dal.ProviderOne
+namespace BrokerAPI.dal.Quality
 {
-    public interface IIPInfoDal
+    public interface IQualityDal
     {
-        Task<IpInfo.FullResponse> getIPdetails(ProviderQuality p1);
+        List<ProviderQuality> GetQuality();
     }
 }

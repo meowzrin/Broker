@@ -1,5 +1,7 @@
 using BrokerAPI.bl;
 using BrokerAPI.dal.ProviderOne;
+using BrokerAPI.dal.ProviderTwo;
+using BrokerAPI.dal.Quality;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +34,8 @@ namespace BrokerAPI
             services.AddScoped<IBrokerBl, BrokerBl>();
             services.AddScoped<IIPInfoDal, IPInfoDal>();
             services.AddScoped<HttpClient>(); 
+            services.AddScoped<ISlowIpInfoDal, SlowIpInfoDal>();
+            services.AddScoped<IQualityDal, QualityDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +45,7 @@ namespace BrokerAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

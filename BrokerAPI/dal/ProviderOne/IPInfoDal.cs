@@ -4,41 +4,49 @@ using System.Net.Http;
 using System;
 using Newtonsoft.Json;
 using System.Net;
+using System.Diagnostics;
+using BrokerAPI.domain;
 
 namespace BrokerAPI.dal.ProviderOne
 {
     public class IPInfoDal : IIPInfoDal
     {
         private readonly HttpClient _httpClient;
+        private readonly Uri url = new Uri("https://ipinfo.io/");
         public IPInfoDal(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-        public async Task<FullResponse> getIPdetails()
+        public async Task<FullResponse> getIPdetails(ProviderQuality p1)
         {
             FullResponse response = new FullResponse(); ;
             try
             {
-                Uri url = new Uri("https://ipinfo.io/");
-                HttpResponseMessage httpResult= await _httpClient.GetAsync(url.AbsoluteUri);
-               if(httpResult.IsSuccessStatusCode)
-                {
+                 HttpResponseMessage httpResult= await _httpClient.GetAsync(url.AbsoluteUri);
+              
+                 Stopwatch stopwatch = new Stopwatch();
+                
+                p1.requestCount++;
+                if (httpResult.IsSuccessStatusCode)
+                 {
+
+                    stopwatch.Reset();
+                    stopwatch.Start();
                     string data  = await httpResult.Content.ReadAsStringAsync();
                     response = JsonConvert.DeserializeObject<FullResponse>(data);
-                    //string code = httpResult.StatusCode.ToString();
-                }
+                    stopwatch.Stop();
+                    p1.avgResponseTime += stopwatch.ElapsedMilliseconds/2;
+                 }
                 else
                 {
-                    
+                    p1.errorCount++;
                 }
-
                 
-
                 
             }
-            catch(ApiException e)
+            catch (Exception e)
             {
-
+                //log exception
             }
 
             return response;
