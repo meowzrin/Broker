@@ -35,16 +35,34 @@ namespace BrokerAPI.bl
                 }
                 else
                 {
-                    var res = await _slowIpInfoDal.getIPdetails(qualities[1]);
-                    response.Country = res.Country;
-                    response.City = res.City;
+                    if (qualities[0].errorCount != qualities[1].errorCount)
+                    {
+                        var res = await _slowIpInfoDal.getIPdetails(qualities[1]);
+                        response.Country = res.Country;
+                        response.City = res.City;
+                    }
+                    else
+                    {
+                        if (qualities[0].avgResponseTime < qualities[1].avgResponseTime)
+                        {
+                            var res = await _ipInfoDal.getIPdetails(qualities[0]);
+                            response.Country = res.Country;
+                            response.City = res.City;
+                        }
+                        else
+                        {
+                            var res = await _slowIpInfoDal.getIPdetails(qualities[1]);
+                            response.Country = res.Country;
+                            response.City = res.City;
+                        }
+                    }
                 }
             }
             catch (Exception e)
             {
                 //log exception
             }
-            
+
             return response;
         }
     }

@@ -19,30 +19,30 @@ namespace BrokerAPI.dal.ProviderOne
         }
         public async Task<FullResponse> getIPdetails(ProviderQuality p1)
         {
-            FullResponse response = new FullResponse(); ;
+            FullResponse response = new FullResponse();
             try
             {
-                 HttpResponseMessage httpResult= await _httpClient.GetAsync(url.AbsoluteUri);
-              
-                 Stopwatch stopwatch = new Stopwatch();
-                
+                HttpResponseMessage httpResult = await _httpClient.GetAsync(url.AbsoluteUri);
+
+                Stopwatch stopwatch = new Stopwatch();
+
                 p1.requestCount++;
                 if (httpResult.IsSuccessStatusCode)
-                 {
+                {
 
                     stopwatch.Reset();
                     stopwatch.Start();
-                    string data  = await httpResult.Content.ReadAsStringAsync();
+                    string data = await httpResult.Content.ReadAsStringAsync();
                     response = JsonConvert.DeserializeObject<FullResponse>(data);
                     stopwatch.Stop();
-                    p1.avgResponseTime += stopwatch.ElapsedMilliseconds/2;
-                 }
+                    p1.avgResponseTime += stopwatch.ElapsedMilliseconds / 2;
+                }
                 else
                 {
                     p1.errorCount++;
                 }
-                
-                
+
+
             }
             catch (Exception e)
             {
